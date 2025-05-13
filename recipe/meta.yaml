@@ -33,7 +33,7 @@ requirements:
     - pyyaml 
     - opentelemetry-api
     - opentelemetry-exporter-otlp-proto-grpc
-    - opentelemetry-sdk 
+    #- opentelemetry-sdk 
     - python-kubernetes
     - tenacity 
     - grpcio
