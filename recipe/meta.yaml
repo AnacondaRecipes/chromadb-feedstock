@@ -29,6 +29,7 @@ requirements:
     - python-build
     - mmh3 
     - opentelemetry-instrumentation
+    - opentelemetry-semantic-conventions
     - opentelemetry-instrumentation-fastapi 
     - pyyaml 
     - opentelemetry-api
