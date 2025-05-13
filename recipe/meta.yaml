@@ -16,10 +16,11 @@ build:
 
 requirements:
   host:
-    - python
+    - python >3.10
     - setuptools
     - setuptools-scm
     - pip
+    - wheel
   run:
     - typing_extensions
     - uvicorn 
@@ -29,7 +30,7 @@ requirements:
     - python-build
     - mmh3 
     - opentelemetry-instrumentation
-    - opentelemetry-semantic-conventions ==0.53b0
+    - opentelemetry-semantic-conventions
     - opentelemetry-instrumentation-fastapi 
     - pyyaml 
     - opentelemetry-api
@@ -40,7 +41,7 @@ requirements:
     - grpcio
     - typer
     - bcrypt
-    - python
+    - python >3.10
     - fastapi
     - chroma-hnswlib
     - importlib-resources
