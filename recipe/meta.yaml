@@ -31,7 +31,7 @@ requirements:
     - mmh3 
     - opentelemetry-instrumentation
     - opentelemetry-semantic-conventions
-    - opentelemetry-instrumentation-fastapi 
+    #- opentelemetry-instrumentation-fastapi 
     - pyyaml 
     - opentelemetry-api
     - opentelemetry-exporter-otlp-proto-grpc
