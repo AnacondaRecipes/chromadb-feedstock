@@ -16,7 +16,7 @@ build:
 
 requirements:
   host:
-    - python >3.10
+    - python <3.13
     - setuptools
     - setuptools-scm
     - pip
@@ -41,7 +41,7 @@ requirements:
     - grpcio
     - typer
     - bcrypt
-    - python >3.10
+    - python <3.13
     - fastapi
     - chroma-hnswlib
     - importlib-resources
