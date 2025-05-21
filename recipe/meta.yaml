@@ -46,7 +46,7 @@ requirements:
     - orjson
     - python-build
     - mmh3 
-    - opentelemetry-instrumentation-fastapi >=0.41b0
+    - opentelemetry-instrumentation-fastapi ==0.41b0
     - pyyaml
     - opentelemetry-api >=1.2.0
     - opentelemetry-exporter-otlp-proto-grpc >=1.2.0
