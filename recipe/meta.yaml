@@ -49,9 +49,9 @@ requirements:
     #- opentelemetry-instrumentation-fastapi ==0.41b0
     - opentelemetry-instrumentation-fastapi 
     - pyyaml
-    - opentelemetry-api >=1.2.0
-    - opentelemetry-exporter-otlp-proto-grpc >=1.2.0
-    - opentelemetry-sdk >=1.2.0
+    - opentelemetry-api
+    - opentelemetry-exporter-otlp-proto-grpc
+    - opentelemetry-sdk
     - python-kubernetes
     - tenacity
     - grpcio 
