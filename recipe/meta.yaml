@@ -1,59 +1,77 @@
 {% set name = "chromadb" %}
-{% set version = "0.6.3" %}
+{% set version = "1.0.9" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/chromadb-{{ version }}.tar.gz
-  sha256: c8f34c0b704b9108b04491480a36d42e894a960429f87c6516027b5481d59ed3
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/chromadb-{{ version }}.tar.gz
+    sha256: 96498ed141e71f1fce2e40f1bdce89020182f9fceed8d8e30d3a40e07be3d488
+  - url: https://raw.githubusercontent.com/chroma-core/chroma/refs/tags/{{ version }}/LICENSE
+    sha256: c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4
+    fn: LICENSE
 
 build:
-  noarch: python
-  number: 2
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+  script:
+    - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
+  build:
+    #- {{ stdlib('c') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('rust') }}
+    - cargo-bundle-licenses
+    # Needed for protoc
+    - libprotobuf
+    - make
+    - python                                 # [build_platform != target_platform]
+    #- cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    #- maturin >=1.0,<2.0                     # [build_platform != target_platform]
   host:
-    - python {{ python_min }}
-    - setuptools >=61.0
-    - setuptools-scm >=6.2
+    - python
+    - maturin
+    - setuptools
+    - setuptools-scm
     - pip
   run:
-    - typing_extensions >=4.5.0
-    - uvicorn >=0.18.3
-    - rich >=10.11.0
-    - httpx >=0.27.0
-    - orjson >=3.9.12
-    - python-build >=1.0.3
-    - mmh3 >=4.0.1
-    - opentelemetry-instrumentation-fastapi >=0.41b0
-    - pyyaml >=6.0.0
-    - opentelemetry-api >=1.2.0
-    - opentelemetry-exporter-otlp-proto-grpc >=1.2.0
-    - opentelemetry-sdk >=1.2.0
-    - python-kubernetes >=28.1.0
-    - tenacity >=8.2.3
-    - grpcio >=1.58.0
-    - typer >=0.9.0
-    - bcrypt >=4.0.1
-    - python >={{ python_min }}
-    - fastapi >=0.95.2
-    - chroma-hnswlib ==0.7.6
+    - jsonschema
+    - typing_extensions
+    - uvicorn
+    - rich 
+    - httpx
+    - orjson
+    - python-build
+    - mmh3 
+    #- opentelemetry-instrumentation-fastapi ==0.41b0
+    - opentelemetry-instrumentation-fastapi 
+    - pyyaml
+    - opentelemetry-api
+    - opentelemetry-exporter-otlp-proto-grpc
+    - opentelemetry-sdk
+    - python-kubernetes
+    - tenacity
+    - grpcio 
+    - typer 
+    - bcrypt
+    - python
+    - fastapi ==0.115.9
     - importlib-resources
-    - numpy >=1.22.5
-    - onnxruntime >=1.14.1
-    - overrides >=7.3.1
-    - posthog >=2.4.0
-    - pulsar-client >=3.1.0
-    - pydantic >=1.9
-    - pypika >=0.48.9
-    - requests >=2.28
-    - tokenizers >=0.13.2
-    - tqdm >=4.65.0
-    - typing-extensions >=4.5.0
-    - uvicorn-standard >=0.18.3
+    - numpy 
+    - onnxruntime
+    - overrides 
+    - posthog >2.4.0
+    - pulsar-client 
+    - pydantic 
+    - pypika 
+    - requests
+    - tokenizers
+    - tqdm 
+    - typing-extensions
+    - uvicorn-standard
 
 test:
   imports:
@@ -62,7 +80,7 @@ test:
     - pip check
   requires:
     - pip
-    - python {{ python_min }}
+    - python
 
 about:
   home: https://www.trychroma.com/
@@ -70,27 +88,20 @@ about:
   license: Apache-2.0
   license_file:
     - LICENSE
-    - clients/js/LICENSE
+    - THIRDPARTY.yml
   description: |
     Chroma is the open-source embedding database. Chroma makes it easy to build
     LLM apps by making knowledge, facts, and skills pluggable for LLMs.
-
-    ![banner](https://docs.trychroma.com/img/hrm4.svg)
-
-    PyPI: [https://pypi.org/project/chromadb](https://pypi.org/project/chromadb)
-
-    ---
-
-    :fire: The conda-forge recipe was generated with [Conda-Forger App](https://sugatoray-conda-forger.streamlit.app/).
-
-    :point_right: [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://sugatoray-conda-forger.streamlit.app/)
-
-    [_streamlit-conda-forger-app]: https://sugatoray-conda-forger.streamlit.app/
-
   dev_url: https://github.com/chroma-core/chroma
   doc_url: https://docs.trychroma.com/
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/70829
+    reason: Dependency for chromadb
+  recipe-maintainers:
+    - ianaobi
+    - bkreider
   recipe-maintainers:
     - sugatoray
     - xhochy
