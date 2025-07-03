@@ -58,7 +58,7 @@ requirements:
     - typer 
     - bcrypt
     - python
-    - fastapi >=0.115.9
+    - fastapi ==0.115.9
     - importlib-resources
     - numpy 
     - onnxruntime
