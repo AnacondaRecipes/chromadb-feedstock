@@ -63,7 +63,7 @@ requirements:
     - numpy 
     - onnxruntime
     - overrides 
-    - posthog 
+    - posthog > 2.4.0
     - pulsar-client 
     - pydantic 
     - pypika 
@@ -101,6 +101,7 @@ extra:
     reason: Dependency for chromadb
   recipe-maintainers:
     - ianaobi
+    - bkreider
   recipe-maintainers:
     - sugatoray
     - xhochy
