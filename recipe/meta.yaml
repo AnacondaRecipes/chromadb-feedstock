@@ -15,6 +15,7 @@ source:
 build:
   number: 0
   skip: true  # [py<310]
+  skip: true  # [py>313]  # python-kubernetes lacks py3.14 build on pkgs/main
   script:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
@@ -28,7 +29,7 @@ requirements:
     - cargo-bundle-licenses
     # libprotobuf provides protoc for the build (chromadb_rust_bindings emits .proto stubs)
     - libprotobuf
-    - make
+    - make  # [unix]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - python                                 # [build_platform != target_platform]
     - maturin >=1.0,<2                       # [build_platform != target_platform]
