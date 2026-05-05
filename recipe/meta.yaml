@@ -61,7 +61,11 @@ requirements:
     - uvicorn-standard >=0.18.3
     - numpy >=1.22.5
     - typing_extensions >=4.5.0
-    - onnxruntime >=1.14.1
+    # Pin to CPU variant: the CUDA build of onnxruntime registers its
+    # PyPI metadata as 'onnxruntime-gpu', which makes 'pip check' miss
+    # chromadb's 'onnxruntime' requirement. Users who want GPU
+    # acceleration should install the CUDA variant explicitly.
+    - onnxruntime >=1.14.1 *cpu*
     - opentelemetry-api >=1.2.0
     - opentelemetry-exporter-otlp-proto-grpc >=1.2.0
     - opentelemetry-sdk >=1.2.0
