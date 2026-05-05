@@ -16,6 +16,10 @@ build:
   number: 0
   skip: true  # [py<310]
   script:
+    # Windows MAX_PATH workaround: chromadb pulls in google-cloud-rust
+    # whose nested googleapis .proto checkout exceeds 260 chars. Tell
+    # libgit2 (used by cargo) to honor Windows long-path support.
+    - git config --global core.longpaths true  # [win]
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
