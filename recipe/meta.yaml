@@ -26,7 +26,7 @@ build:
     #      path is ~75 chars shorter.
     #   2. Enable libgit2 long-path support as a belt-and-suspenders
     #      measure (helps with checkouts that still flirt with the limit).
-    - set CARGO_HOME=C:\c  # [win]
+    - set CARGO_HOME=C:\c%PKG_HASH%  # [win]
     - git config --global core.longpaths true  # [win]
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
