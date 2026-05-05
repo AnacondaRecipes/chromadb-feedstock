@@ -15,7 +15,6 @@ source:
 build:
   number: 0
   skip: true  # [py<310]
-  skip: true  # [py>313]  # python-kubernetes lacks py3.14 build on pkgs/main
   script:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
