@@ -17,8 +17,16 @@ build:
   skip: true  # [py<310]
   script:
     # Windows MAX_PATH workaround: chromadb pulls in google-cloud-rust
-    # whose nested googleapis .proto checkout exceeds 260 chars. Tell
-    # libgit2 (used by cargo) to honor Windows long-path support.
+    # whose nested googleapis .proto file path is ~130 chars on its own.
+    # The conda build_prefix path (~70 chars) + the default
+    # %BUILD_ENV%\.cargo.win\... layout pushes the total over 260 chars,
+    # which is the NTFS limit unless LongPathsEnabled is set in the
+    # registry. We can't change worker registry, so:
+    #   1. Relocate CARGO_HOME to a very short root (C:\c) so the cache
+    #      path is ~75 chars shorter.
+    #   2. Enable libgit2 long-path support as a belt-and-suspenders
+    #      measure (helps with checkouts that still flirt with the limit).
+    - set CARGO_HOME=C:\c  # [win]
     - git config --global core.longpaths true  # [win]
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
