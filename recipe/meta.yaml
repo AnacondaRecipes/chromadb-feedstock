@@ -30,7 +30,8 @@ build:
     - git config --global core.longpaths true  # [win]
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-
+  entry_points:
+    - chroma = chromadb.cli.cli:app
 requirements:
   build:
     - {{ compiler('c') }}
