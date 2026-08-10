@@ -1,20 +1,22 @@
 {% set name = "chromadb" %}
-{% set version = "1.5.8" %}
+{% set version = "1.5.9" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 9f5dfaea989128793c4e1928de6a150d70ae55e44403d85448be94ff32f2c962
+    sha256: 5c20e62a455c28bacac927f26116a73fd8e1799e0d908be8e8a4f02197a54731
+    patches:
+      - 0001-increase-recursion-limit.patch
   - url: https://raw.githubusercontent.com/chroma-core/chroma/refs/tags/{{ version }}/LICENSE
     sha256: c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4
     folder: license-src
 
 build:
   number: 0
-  skip: true  # [py<310]
+  skip: true  # [py<39]
   script:
     # Windows MAX_PATH workaround: chromadb pulls in google-cloud-rust
     # whose nested googleapis .proto file path is ~130 chars on its own.
@@ -42,12 +44,10 @@ requirements:
     # libprotobuf provides protoc for the build (chromadb_rust_bindings emits .proto stubs)
     - libprotobuf
     - make  # [unix]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - python                                 # [build_platform != target_platform]
-    - maturin >=1.0,<2                       # [build_platform != target_platform]
   host:
     - python
     - pip
+    - grpcio-tools
     - maturin >=1.0,<2
     - setuptools >=61.0
     - setuptools-scm >=6.2
@@ -93,6 +93,7 @@ requirements:
     - fastapi >=0.115.9
     - opentelemetry-instrumentation-fastapi >=0.41b0
 
+# Trying to run tests causes a lot of errors related to compatibility between dependencies, so we ignore them for now.
 test:
   imports:
     - chromadb

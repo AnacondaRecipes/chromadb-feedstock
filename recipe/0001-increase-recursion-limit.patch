@@ -1,0 +1,189 @@
+diff --git a/rust/blockstore/benches/blockfile_writer.rs b/rust/blockstore/benches/blockfile_writer.rs
+index e92a093f9..14f285ddf 100644
+--- a/rust/blockstore/benches/blockfile_writer.rs
++++ b/rust/blockstore/benches/blockfile_writer.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use chroma_blockstore::{
+     arrow::{
+         config::BlockManagerConfig,
+diff --git a/rust/blockstore/src/lib.rs b/rust/blockstore/src/lib.rs
+index ba0be04b2..db674fd3f 100644
+--- a/rust/blockstore/src/lib.rs
++++ b/rust/blockstore/src/lib.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ pub mod types;
+ 
+ pub mod arrow;
+diff --git a/rust/blockstore/tests/blockfile_writer_test.rs b/rust/blockstore/tests/blockfile_writer_test.rs
+index 6168c9f35..b78ad9b47 100644
+--- a/rust/blockstore/tests/blockfile_writer_test.rs
++++ b/rust/blockstore/tests/blockfile_writer_test.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ //! This test uses the proptest-state-machine crate to generate a sequence of transitions for a blockfile writer and compares the result after every commit with a reference implementation.
+ 
+ #[cfg(test)]
+diff --git a/rust/index/benches/fts_regex.rs b/rust/index/benches/fts_regex.rs
+index 51b934251..a3c4096d6 100644
+--- a/rust/index/benches/fts_regex.rs
++++ b/rust/index/benches/fts_regex.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use chroma_benchmark::datasets::wikipedia_splade::WikipediaSplade;
+ use chroma_blockstore::arrow::provider::BlockfileReaderOptions;
+ use chroma_blockstore::{test_arrow_blockfile_provider, BlockfileWriterOptions};
+diff --git a/rust/index/benches/full_text.rs b/rust/index/benches/full_text.rs
+index 81d1c3214..8f5a21360 100644
+--- a/rust/index/benches/full_text.rs
++++ b/rust/index/benches/full_text.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use anyhow::Result;
+ use chroma_benchmark::datasets::types::Record;
+ use chroma_benchmark::datasets::{
+diff --git a/rust/index/benches/literal.rs b/rust/index/benches/literal.rs
+index 733c3d7fb..f1d3a7fb8 100644
+--- a/rust/index/benches/literal.rs
++++ b/rust/index/benches/literal.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use chroma_benchmark::{
+     benchmark::{bench_run, tokio_multi_thread},
+     datasets::rust::TheStackDedupRust,
+diff --git a/rust/index/src/lib.rs b/rust/index/src/lib.rs
+index e948d6ddf..1863124ca 100644
+--- a/rust/index/src/lib.rs
++++ b/rust/index/src/lib.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ pub mod config;
+ pub mod fulltext;
+ mod hnsw;
+diff --git a/rust/index/tests/hnsw_reload_repro.rs b/rust/index/tests/hnsw_reload_repro.rs
+index 39e44e2bd..7eb645e45 100644
+--- a/rust/index/tests/hnsw_reload_repro.rs
++++ b/rust/index/tests/hnsw_reload_repro.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use std::{
+     env,
+     process::{Command, Output},
+diff --git a/rust/index/tests/maxscore/main.rs b/rust/index/tests/maxscore/main.rs
+index f4f8b7ed6..9b146c862 100644
+--- a/rust/index/tests/maxscore/main.rs
++++ b/rust/index/tests/maxscore/main.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ mod common;
+ 
+ mod ms_01_blockfile_roundtrip;
+diff --git a/rust/segment/src/lib.rs b/rust/segment/src/lib.rs
+index 95fa58939..141f24058 100644
+--- a/rust/segment/src/lib.rs
++++ b/rust/segment/src/lib.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ pub mod blockfile_metadata;
+ pub mod blockfile_record;
+ pub mod bloom_filter;
+diff --git a/rust/wal3/src/lib.rs b/rust/wal3/src/lib.rs
+index 12c927067..8a072d463 100644
+--- a/rust/wal3/src/lib.rs
++++ b/rust/wal3/src/lib.rs
+@@ -1,4 +1,5 @@
+ #![doc = include_str!("../README.md")]
++#![recursion_limit = "256"]
+ 
+ use std::sync::Arc;
+ 
+diff --git a/rust/worker/benches/filter.rs b/rust/worker/benches/filter.rs
+index 04a24cc21..73161bef6 100644
+--- a/rust/worker/benches/filter.rs
++++ b/rust/worker/benches/filter.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use std::iter::once;
+ 
+ use chroma_benchmark::benchmark::{bench_run, tokio_multi_thread};
+diff --git a/rust/worker/benches/get.rs b/rust/worker/benches/get.rs
+index 627315ddb..d1c7952a2 100644
+--- a/rust/worker/benches/get.rs
++++ b/rust/worker/benches/get.rs
+@@ -1,3 +1,4 @@
++#![recursion_limit = "256"]
+ #[allow(dead_code)]
+ mod load;
+ 
+diff --git a/rust/worker/benches/limit.rs b/rust/worker/benches/limit.rs
+index 3cc63e767..f175206b1 100644
+--- a/rust/worker/benches/limit.rs
++++ b/rust/worker/benches/limit.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use chroma_benchmark::benchmark::{bench_run, tokio_multi_thread};
+ use chroma_log::test::{upsert_generator, LoadFromGenerator};
+ use chroma_segment::test::TestDistributedSegment;
+diff --git a/rust/worker/benches/load.rs b/rust/worker/benches/load.rs
+index a881bc663..ea211c3e8 100644
+--- a/rust/worker/benches/load.rs
++++ b/rust/worker/benches/load.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use chroma_benchmark::datasets::sift::Sift1MData;
+ use chroma_log::{in_memory_log::InMemoryLog, test::modulo_metadata, Log};
+ use chroma_segment::test::TestDistributedSegment;
+diff --git a/rust/worker/benches/query.rs b/rust/worker/benches/query.rs
+index 551ff076a..cf276eb02 100644
+--- a/rust/worker/benches/query.rs
++++ b/rust/worker/benches/query.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ #[allow(dead_code)]
+ mod load;
+ 
+diff --git a/rust/worker/benches/regex.rs b/rust/worker/benches/regex.rs
+index c514ee75d..8c4ee511a 100644
+--- a/rust/worker/benches/regex.rs
++++ b/rust/worker/benches/regex.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use std::collections::HashMap;
+ use std::time::Duration;
+ 
+diff --git a/rust/worker/benches/spann.rs b/rust/worker/benches/spann.rs
+index da0f63322..f7d3a70f0 100644
+--- a/rust/worker/benches/spann.rs
++++ b/rust/worker/benches/spann.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ use std::collections::HashSet;
+ 
+ use chroma_benchmark::{
+diff --git a/rust/worker/src/lib.rs b/rust/worker/src/lib.rs
+index a80d98e48..f3431ca73 100644
+--- a/rust/worker/src/lib.rs
++++ b/rust/worker/src/lib.rs
+@@ -1,3 +1,5 @@
++#![recursion_limit = "256"]
++
+ mod compactor;
+ mod server;
+ mod utils;
